@@ -1,11 +1,10 @@
-from django.urls import path
+from rest_framework import routers
 
-from apps.cars.views import CarAPIView, CarCreateAPIView, CarUpdateAPIView, CarDestroyAPIView
+from apps.cars.views import CarAPIViewSet, SpecialMarksAPIViewSet, PeriodOwnershipAPIViewSet
 
-urlpatterns = [
-    path('cars/', CarAPIView.as_view(), name = "api_cars"),
-    path('cars/create/', CarCreateAPIView.as_view(), name = "api_cars_create"),
-    path('cars/update/<int:pk>/', CarUpdateAPIView.as_view(), name = "api_cars_update"),
-    path('cars/destroy/<int:pk>/', CarDestroyAPIView.as_view(), name = "api_cars_destroy"),
-    ]
+router = routers.DefaultRouter()
+router.register('cars', CarAPIViewSet, "api_cars")
+router.register('special', SpecialMarksAPIViewSet, "api_special_marks")
+router.register('periods', PeriodOwnershipAPIViewSet, "api_periods_ownership")
 
+urlpatterns = router.urls
